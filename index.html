@@ -133,7 +133,26 @@ episodeModal.addEventListener('click',e=>{if(e.target===episodeModal)episodeModa
 document.getElementById('playEpisodeBtn').addEventListener('click',()=>{
   document.getElementById('episodeStatus').textContent=language==='en'?'Playback will activate as soon as we add the actual episode video.':'Reprodukcija će biti aktivna čim dodamo pravi video epizode.';
 });
-
 document.getElementById('signupForm').addEventListener('submit',e=>{e.preventDefault();document.getElementById('modalText').textContent=language==='en'?'Thanks! This is a visual prototype only, so your email was not saved. We will connect a real signup service in the next version.':'Hvala! Ovo je samo vizuelni prototip, pa imejl nije sačuvan. Pravu prijavu ćemo povezati u sledećoj verziji.';document.getElementById('signupForm').style.display='none'});
+const planDetails = {
+  daily: { en: 'Daily — €5.99', sr: 'Dnevni — €5,99' },
+  weekly: { en: 'Weekly — €15', sr: 'Nedeljni — €15' },
+  monthly: { en: 'Monthly — €30', sr: 'Mesečni — €30' },
+  annual: { en: 'Annual — €250', sr: 'Godišnji — €250' }
+};
+
+document.querySelectorAll('.choose-plan').forEach(button => {
+  button.addEventListener('click', () => {
+    const plan = planDetails[button.dataset.plan];
+    const notice = document.getElementById('notice');
+
+    notice.textContent = language === 'en'
+      ? `You selected ${plan.en}. Secure payment will be available soon.`
+      : `Izabrali ste paket ${plan.sr}. Bezbedno plaćanje biće dostupno uskoro.`;
+
+    notice.classList.add('show');
+    notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+});
 </script>
 </body></html>
